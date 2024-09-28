@@ -1,20 +1,56 @@
-// Assignment 5 - Balanced String.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Assignment 5 - Balanced String.cpp
+// 
+// Programmer: Eisig Liang
+// Completion date: 
+// AI disclosure: ChatGPT was used ONLY for generating equations for the test cases
 //
 
 #include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+bool isBalanced(string input) 
+{ 
+    /* Checks if string is balanced */
+
+    stack<char> brackets;
+
+    for (int index = 0; index < input.size() / sizeof(char); index ++) {
+        char character = input.at(index);
+
+        if (character == '(' or character == '[' or character == '{') { // Add opening brackets to stack
+            brackets.push(input.at(index));
+        }
+        else if (character == ')' and brackets.top() == '(' or 
+            character == ']' and brackets.top() == '[' or
+            character == '}' and brackets.top() == '{') 
+        { // Verify closing parenthesis balances equation (there's got to be a better way to do this, right?)
+            brackets.pop();
+        }
+    }
+
+    if (brackets.size() == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main()
+{ 
+    /* Runs test cases */
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    // Test case 1: Testing balanced equation
+    cout << "Testing: isBalanced(\"(a + b * [c - d]) / (e + f * {g + h})\") | Expected output: 1" << endl;
+    cout << isBalanced("(a + b * [c - d]) / (e + f* { g + h })") << endl << endl;
+
+    // Test case 2: Testing unbalanced equation with missing bracket
+    cout << "Testing: isBalanced(\"(a + b * [c - d / (e + f * {g + h}]\") | Expected output: 0" << endl;
+    cout << isBalanced("(a + b * [c - d / (e + f * {g + h}]") << endl << endl;
+
+    // Test case 3: Testing unbalanced equation with an incorrect order of brackets
+    cout << "Testing: isBalanced(\"{a + b * (c - d} / [e + f * g + h)}\") | Expected output: 0" << endl;
+    cout << isBalanced("{a + b * (c - d} / [e + f * g + h)}") << endl << endl;
+}
