@@ -1,7 +1,7 @@
 // Assignment 5 - Balanced String.cpp
 // 
 // Programmer: Eisig Liang
-// Completion date: 
+// Completion date: 30/9/24
 // AI disclosure: ChatGPT was used ONLY for generating equations for the test cases
 //
 
@@ -25,7 +25,7 @@ bool isBalanced(string input)
         else if (character == ')' and brackets.top() == '(' or 
             character == ']' and brackets.top() == '[' or
             character == '}' and brackets.top() == '{') 
-        { // Verify closing parenthesis balances equation (there's got to be a better way to do this, right?)
+        { // Verify closing parenthesis balances equation
             brackets.pop();
         }
     }
